@@ -63,28 +63,28 @@ function writeXmlFile(filename, xmlData) {
 
 // Function to find the last added object in output.json
 function getLastAddedObjectId() {
-  const outputData = readJsonFile('output.json');
+  const outputData = readJsonFile('./output.json');
   return outputData.length > 0 ? outputData[outputData.length - 1].id : 0;
 }
 
 // Function to update output.json and output.xml based on data.json
 function updateOutputFiles() {
-  const data = readJsonFile('data.json');
+  const data = readJsonFile('./data.json');
   const lastId = getLastAddedObjectId();
   const nextId = lastId + 1;
 
   const nextObject = data.find((item) => item.id === nextId);
   if (nextObject) {
-    const outputData = readJsonFile('output.json');
+    const outputData = readJsonFile('./output.json');
     outputData.unshift(nextObject); // Add the object to the beginning of the array
 
     // Sort the array in descending order based on id
     outputData.sort((a, b) => b.id - a.id);
 
-    writeJsonFile('output.json', outputData);
+    writeJsonFile('./output.json', outputData);
 
     const xmlData = convertToXml(outputData);
-    writeXmlFile('output.xml', xmlData);
+    writeXmlFile('./output.xml', xmlData);
 
     console.log('output.json and output.xml updated at', new Date());
   } else {

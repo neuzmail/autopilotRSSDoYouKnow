@@ -1,5 +1,11 @@
 [
   {
+    "id": 2,
+    "publishDate": "2023-11-14",
+    "question": "How effective is personalized email content?",
+    "answer": "Personalized email content can increase click-through rates by an average of 14% and conversions by 10%. Tailoring emails to individual preferences and behaviors is a key strategy."
+  },
+  {
     "id": 1,
     "publishDate": "2023-11-14",
     "question": "What was the first email marketing campaign?",
