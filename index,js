@@ -4,7 +4,8 @@ const schedule = require('node-schedule');
 const express = require('express');
 
 const app = express();
-const port = 3000;
+
+const port = process.env.PORT || 3000;
 
 // Function to convert JSON to XML
 function convertToXml(jsonData) {
@@ -105,7 +106,7 @@ schedule.scheduleJob('0 */4 * * *', function () {
 // Initial update when the script starts
 updateOutputFiles();
 
-// Start the server
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+  console.log("I am live again");
+})
