@@ -1,12 +1,41 @@
 const fs = require('fs');
 const convert = require('xml-js');
 const schedule = require('node-schedule');
+const express = require('express');
+
+const app = express();
+const port = 3000;
 
 // Function to convert JSON to XML
 function convertToXml(jsonData) {
+  const rssObject = {
+    _declaration: { _attributes: { version: '1.0', encoding: 'utf-8' } },
+    rss: {
+      _attributes: {
+        'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+        'xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+        'xmlns:admin': 'http://webns.net/mvcb/',
+        'xmlns:rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+        'xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
+        'xmlns:media': 'http://search.yahoo.com/mrss/',
+        version: '2.0',
+      },
+      channel: {
+        title: 'Neuzmail: Email Marketing Do you know?',
+        link: 'https://neuzmail.in',
+        description:
+          'Don"t miss out on the secrets that successful marketers swear by! Explore the facts now and take your email marketing strategy to the next level.',
+        item: jsonData.map((item) => ({
+          title: { _text: item.question },
+          description: { _text: item.answer },
+          pubDate: { _text: item.publishDate },
+        })),
+      },
+    },
+  };
+
   const options = { compact: true, ignoreComment: true, spaces: 4 };
-  const xmlData = convert.json2xml(jsonData, options);
-  return xmlData;
+  return convert.json2xml(rssObject, options);
 }
 
 // Function to read JSON data from file
@@ -62,37 +91,11 @@ function updateOutputFiles() {
   }
 }
 
-// Function to convert JSON to XML
-function convertToXml(outputData) {
-  const rssObject = {
-    _declaration: { _attributes: { version: '1.0', encoding: 'utf-8' } },
-    rss: {
-      _attributes: {
-        'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-        'xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
-        'xmlns:admin': 'http://webns.net/mvcb/',
-        'xmlns:rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-        'xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-        'xmlns:media': 'http://search.yahoo.com/mrss/',
-        version: '2.0',
-      },
-      channel: {
-        title: 'Neuzmail : Email Marketing Do you know ?',
-        link: 'https://neuzmail.in',
-        description: 'Don"t miss out on the secrets that successful marketers swear by! Explore the facts now and take your email marketing strategy to the next level.',
-        item: outputData.map((item) => ({
-          title: { _text: item.question },
-          description: { _text: item.answer } ,
-          pubDate: { _text: item.publishDate }
-        })),
-      },
-    },
-  };
-
-  const options = { compact: true, ignoreComment: true, spaces: 4 };
-  return convert.json2xml(rssObject, options);
-  
-}
+// Function to handle HTTP requests
+app.get('/', (req, res) => {
+  // Send a response when someone accesses the root URL
+  res.send('Server is running!');
+});
 
 // Schedule the script to run every 4 hours
 schedule.scheduleJob('0 */4 * * *', function () {
@@ -101,3 +104,8 @@ schedule.scheduleJob('0 */4 * * *', function () {
 
 // Initial update when the script starts
 updateOutputFiles();
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
