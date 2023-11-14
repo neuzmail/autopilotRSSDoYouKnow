@@ -50,13 +50,14 @@ function writeJsonFile(filename, jsonData) {
   fs.writeFileSync(filename, JSON.stringify(jsonData, null, 2), 'utf-8');
 }
 
-// Function to read XML data from file
+
+// Function to read XML data from file (unchanged)
 function readXmlFile(filename) {
   const data = fs.readFileSync(filename, 'utf-8');
-  return convert.xml2json(data, { compact: true, spaces: 4 });
+  return data;
 }
 
-// Function to write XML data to file
+// Function to write XML data to file (unchanged)
 function writeXmlFile(filename, xmlData) {
   fs.writeFileSync(filename, xmlData, 'utf-8');
 }
@@ -92,10 +93,12 @@ function updateOutputFiles() {
   }
 }
 
-// Function to handle HTTP requests
 app.get('/', (req, res) => {
-  // Send a response when someone accesses the root URL
-  res.send('Server is running!');
+  // Read the content of the output.xml file
+  const xmlContent = readXmlFile('./output.xml');
+  // Send the XML content as the response
+  res.header('Content-Type', 'application/xml');
+  res.send(xmlContent);
 });
 
 // Schedule the script to run every 4 hours
