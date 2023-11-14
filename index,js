@@ -94,8 +94,7 @@ function convertToXml(outputData) {
   
 }
 
-
-// Schedule the script to run every 5 minutes
+// Schedule the script to run every 4 hours
 schedule.scheduleJob('0 */4 * * *', function () {
   updateOutputFiles();
 });

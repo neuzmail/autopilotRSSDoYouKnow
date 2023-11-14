@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:admin="http://webns.net/mvcb/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+    <channel>
+        <title>Neuzmail : Email Marketing Do you know ?</title>
+        <link>https://neuzmail.in</link>
+        <description>Don"t miss out on the secrets that successful marketers swear by! Explore the facts now and take your email marketing strategy to the next level.</description>
+        <item>
+            <title>What was the first email marketing campaign?</title>
+            <description>The first email marketing campaign was sent by Gary Thuerk in 1978, promoting DEC machines to 400 users. It resulted in $13 million worth of sales.</description>
+            <pubDate>2023-11-14</pubDate>
+        </item>
+    </channel>
+</rss>
